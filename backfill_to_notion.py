@@ -78,7 +78,9 @@ async def main():
 
             create_job_entry(
                 job,
-                text
+                text,
+                msg.id,
+                msg.date
             )
 
             added += 1

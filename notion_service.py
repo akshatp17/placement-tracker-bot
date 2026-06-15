@@ -42,7 +42,9 @@ def extract_application_link(message):
 
 def create_job_entry(
     job,
-    original_message
+    original_message,
+    telegram_message_id,
+    telegram_timestamp
 ):
 
     deadline = parse_date(
@@ -281,7 +283,18 @@ def create_job_entry(
                     }
                 }
             ]
-        }
+        },
+
+        "Telegram Message ID": {
+            "number": telegram_message_id
+        },
+        
+        "Telegram Timestamp": {
+            "date": {
+                "start":
+                telegram_timestamp.isoformat()
+            }
+        },
     }
 
     if application_link:

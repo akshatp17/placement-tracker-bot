@@ -53,7 +53,9 @@ async def handler(event):
 
         create_job_entry(
             job,
-            text
+            text,
+            event.id,
+            event.date
         )
 
         print("✅ Saved To Notion")
