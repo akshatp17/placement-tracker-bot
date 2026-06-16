@@ -1,9 +1,11 @@
 from telethon import TelegramClient, events
+from telethon.sessions import StringSession
 
 from config import (
     API_ID,
     API_HASH,
-    GROUP_ID
+    GROUP_ID,
+    TELEGRAM_SESSION
 )
 
 from filters import should_store
@@ -18,7 +20,7 @@ from notion_duplicate import job_exists
 from job_extractor import extract_job
 
 client = TelegramClient(
-    "placement_session",
+    StringSession(TELEGRAM_SESSION),
     API_ID,
     API_HASH
 )
