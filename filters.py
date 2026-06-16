@@ -20,9 +20,13 @@ def should_store(message: str) -> bool:
         "weforshe"
     ]
 
-    # Updates
+    # Updates (process/logistics, not opportunities)
     update_keywords = [
         "online test updates",
+        "online test schedule",           # NEW: catches "Zopsmart Online Test Schedule"
+        "test schedule",                  # NEW
+        "venue update",                   # NEW: catches "Venue Updates"
+        "reporting time",                 # NEW: catches test venue messages
         "oa link",
         "interview schedule",
         "gd link",
@@ -50,18 +54,14 @@ def should_store(message: str) -> bool:
         "blacklisted",
         "disciplinary",
         "NeoPAT",
-        "assessment",
-        "assessment report",
         "placement preparation",
         "placement-ready",
         "day report",
         "neopat",
         "student portal",
         "activated status",
-        "assessment",
+        # REMOVED "assessment" — too broad, kills real JDs with "Assessment" interview rounds
         "freshers hiring trend",
-        "placement preparation",
-        "placement-ready",
         "scholarship",
         "mext",
         "iet india scholarship",
@@ -74,6 +74,14 @@ def should_store(message: str) -> bool:
         "aptitude challenge",
         "ncat",
         "aptitude test",
+        "60 days assessment",             # NEW: specific NeoPAT-style messages
+        "not yet completed the registration",  # NEW: catches Zenken/registration nudges
+        "freshers platform",              # NEW: catches "Zenken Yaaay Freshers Platform"
+        "complete the registration",      # NEW
+        "kindly check your mail",         # NEW: admin nudge messages
+        "neo score",                      # NEW: NeoPAT scoring system
+        "level 1 to level 4",            # NEW: NeoPAT levels
+        "upskilling",                     # NEW: generic skill-push, not a job post
     ]
 
     for word in women_only_keywords:
@@ -88,7 +96,7 @@ def should_store(message: str) -> bool:
         if word in text:
             return False
 
-    # Hackathon handling
+    # Hackathon handling — only keep if there's a concrete hiring outcome
     if "hackathon" in text or "hackerramp" in text:
 
         hiring_hackathon_keywords = [
@@ -100,6 +108,9 @@ def should_store(message: str) -> bool:
             "full time offer",
             "fte",
             "internship opportunity",
+            "stipend",                    # NEW: some hackathons mention stipend for winners
+            "pre-placement",              # NEW
+            "ppo",                        # NEW
         ]
 
         return any(
@@ -130,6 +141,7 @@ def should_store(message: str) -> bool:
             signal in text
             for signal in hiring_signals
         )
+
     # Actual job signals
     job_signals = [
         "placement opportunity",
