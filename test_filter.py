@@ -1,16 +1,18 @@
 from telethon import TelegramClient
+from telethon.sessions import StringSession
 
 from config import (
     API_ID,
     API_HASH,
-    GROUP_ID
+    GROUP_ID,
+    TELEGRAM_SESSION
 )
 
 from filters import should_store
 from duplicate_detector import is_duplicate
 
 client = TelegramClient(
-    "placement_session",
+    StringSession(TELEGRAM_SESSION),
     API_ID,
     API_HASH
 )
@@ -24,7 +26,7 @@ async def main():
 
     async for msg in client.iter_messages(
         GROUP_ID,
-        limit=500
+        limit=10
     ):
 
         total += 1

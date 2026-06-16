@@ -1,9 +1,11 @@
 from telethon import TelegramClient
+from telethon.sessions import StringSession
 
 from config import (
     API_ID,
     API_HASH,
-    GROUP_ID
+    GROUP_ID,
+    TELEGRAM_SESSION
 )
 
 from filters import should_store
@@ -15,7 +17,7 @@ from notion_duplicate import job_exists
 
 
 client = TelegramClient(
-    "placement_session",
+    StringSession(TELEGRAM_SESSION),
     API_ID,
     API_HASH
 )
@@ -28,7 +30,7 @@ async def main():
 
     async for msg in client.iter_messages(
         GROUP_ID,
-        limit=500
+        limit=10
     ):
 
         scanned += 1

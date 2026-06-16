@@ -1,17 +1,19 @@
 from telethon import TelegramClient
 import time
+from telethon.sessions import StringSession
 
 from config import (
     API_ID,
     API_HASH,
-    GROUP_ID
+    GROUP_ID,
+    TELEGRAM_SESSION
 )
 
 from filters import should_store
 from classifier import classify_message
 
 client = TelegramClient(
-    "placement_session",
+    StringSession(TELEGRAM_SESSION),
     API_ID,
     API_HASH
 )
